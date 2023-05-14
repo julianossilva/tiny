@@ -99,3 +99,19 @@ func GetParams(req *http.Request) (map[string]string, error) {
 
 	return value, nil
 }
+
+func GetParam(req *http.Request, name string) (string, error) {
+    params, err := GetParams(req)
+
+    if err != nil {
+        return "", err
+    }
+    
+    param, exist := params[name]
+    if !exist {
+        return "", errors.New("param does not exist")
+    }
+
+    return param, nil 
+}
+
