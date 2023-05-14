@@ -2,6 +2,7 @@ package tiny
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -13,6 +14,10 @@ func SendString(w http.ResponseWriter, text string) {
     w.Write([]byte(text))
 }
 
+func SendStringf(w http.ResponseWriter, text string, args ...any) {
+    SendString(w, fmt.Sprintf(text, args...))
+}
+
 func SendJSON(w http.ResponseWriter, obj any) error {
     data, err := json.Marshal(obj)
     if err != nil {
@@ -22,5 +27,4 @@ func SendJSON(w http.ResponseWriter, obj any) error {
     w.Write(data)
     return nil
 }
-
 
